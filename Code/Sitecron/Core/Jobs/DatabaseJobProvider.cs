@@ -24,7 +24,10 @@ namespace Sitecron.Core.Jobs
 
         public IEnumerable<SitecronJob> GetJobs()
         {
-            return GetJobItems().Select(CreateSitecronJob).Where(_jobValidator.IsValid);
+            using (new Sitecore.Globalization.LanguageSwitcher("en"))
+            { 
+                return GetJobItems().Select(CreateSitecronJob).Where(_jobValidator.IsValid);
+            }
         }
 
         protected virtual SitecronJob CreateSitecronJob(Item jobItem)
